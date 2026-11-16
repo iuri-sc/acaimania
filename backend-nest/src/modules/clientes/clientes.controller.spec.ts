@@ -11,7 +11,14 @@ import { Test } from "@nestjs/testing"
 import { ClientesController } from "./clientes.controller.js"
 import { ClientesService } from "./clientes.service.js"
 
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
+
 describe("ClientesController", () => {
+
+    const guardMock = {
+        canActivate: vi.fn<() => boolean>(),
+    };
+
     let controller: ClientesController
 
     const clienteMock = {
@@ -30,21 +37,30 @@ describe("ClientesController", () => {
         remove: vi.fn(),
     }
 
+    
     beforeEach(async () => {
-        vi.resetAllMocks()
+        vi.resetAllMocks();
+
+        guardMock.canActivate.mockReturnValue(true);
 
         const module = await Test.createTestingModule({
             controllers: [ClientesController],
             providers: [
                 {
                     provide: ClientesService,
-                    useValue: clientesServiceMock
-                }
-            ]
-        }).compile()
+                    useValue: clientesServiceMock,
+                },
+            ],
+        })
+            .overrideGuard(JwtAuthGuard)
+            .useValue(guardMock)
+            .compile();
 
-        controller = module.get<ClientesController>(ClientesController)
-    })
+        controller = module.get<ClientesController>(
+            ClientesController,
+        );
+    });
+
 
     it("deve cadastrar um cliente", async () => {
         const data = {

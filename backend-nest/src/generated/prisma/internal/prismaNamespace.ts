@@ -397,7 +397,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  Cliente: 'Cliente'
+  Cliente: 'Cliente',
+  Funcionario: 'Funcionario'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "cliente"
+    modelProps: "cliente" | "funcionario"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -491,6 +492,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Funcionario: {
+      payload: Prisma.$FuncionarioPayload<ExtArgs>
+      fields: Prisma.FuncionarioFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FuncionarioFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FuncionarioFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload>
+        }
+        findFirst: {
+          args: Prisma.FuncionarioFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FuncionarioFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload>
+        }
+        findMany: {
+          args: Prisma.FuncionarioFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload>[]
+        }
+        create: {
+          args: Prisma.FuncionarioCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload>
+        }
+        createMany: {
+          args: Prisma.FuncionarioCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FuncionarioCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload>[]
+        }
+        delete: {
+          args: Prisma.FuncionarioDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload>
+        }
+        update: {
+          args: Prisma.FuncionarioUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload>
+        }
+        deleteMany: {
+          args: Prisma.FuncionarioDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FuncionarioUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FuncionarioUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload>[]
+        }
+        upsert: {
+          args: Prisma.FuncionarioUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionarioPayload>
+        }
+        aggregate: {
+          args: Prisma.FuncionarioAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFuncionario>
+        }
+        groupBy: {
+          args: Prisma.FuncionarioGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FuncionarioGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FuncionarioCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FuncionarioCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -539,6 +614,17 @@ export const ClienteScalarFieldEnum = {
 } as const
 
 export type ClienteScalarFieldEnum = (typeof ClienteScalarFieldEnum)[keyof typeof ClienteScalarFieldEnum]
+
+
+export const FuncionarioScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  senhaHash: 'senhaHash',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FuncionarioScalarFieldEnum = (typeof FuncionarioScalarFieldEnum)[keyof typeof FuncionarioScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -770,6 +856,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   cliente?: Prisma.ClienteOmit
+  funcionario?: Prisma.FuncionarioOmit
 }
 
 /* Types for Logging */
